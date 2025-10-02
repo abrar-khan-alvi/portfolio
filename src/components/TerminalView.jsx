@@ -121,7 +121,7 @@ const TerminalView = ({ onSwitchMode }) => {
         output = [{ type: "output", content: `Available commands:\n  whois                -  About Me\n  skills               -  My Technical Skillset\n  projects             -  List my major projects\n  projects <id>        -  View details...\n  education            -  My academic background\n  activities           -  My extracurricular involvement\n  awards               -  My awards and achievements\n  research             -  Details of my published paper\n  contact              -  How to Get in Touch\n  hobby                -  My hobbies and interests\n  clear                -  Clear the terminal screen` }];
         break;
       case "whois":
-        output = [{ type: "output", content: `Name: Abrar Khan Alvi\nRole: Full-Stack Developer | AI Enthusiast\nBio: I craft digital experiences at the intersection of code and creativity. Specializing in decentralized applications, AI integration, and innovative web solutions.` }];
+        output = [{ type: "output", content: `Name: Abrar Khan Alvi\nA competitive programmer by passion and a full-stack engineer by practice. I thrive on solving new and difficult problems, whether it's building a decentralized AI application from scratch or architecting an efficient system. I am driven by a need to learn and build.` }];
         break;
       case "skills":
         output = [{ type: "output", content: `Competitive Programming:

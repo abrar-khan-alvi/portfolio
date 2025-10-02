@@ -154,7 +154,7 @@ export const researchInfo = {
 
 export const hobbies = {
   photography: {
-    description: "I enjoy capturing moments and landscapes. You can see some of my work on Facebook.",
+    description: "I enjoy capturing moments and landscapes. You can see some of my work on Facebook & Pinterest.",
     links: [
       "https://www.facebook.com/share/p/1B2PWF8VaJ/", 
       "https://www.facebook.com/share/p/17G9z92aSf/",
