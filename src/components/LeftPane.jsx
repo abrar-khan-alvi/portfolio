@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Github, Linkedin, Download } from 'lucide-react';
 
 const LeftPane = () => {
-  const imageUrl = "/profile.jpg";
+  const imageUrl = "/profile.png";
   const cvUrl = "/Abrar_Khan_Alvi_CV.pdf";
 
   return (
