@@ -1,136 +1,113 @@
-import { desc } from "framer-motion/client";
-
 export const projects = [
   {
     id: 1,
-    title: "Prompt Verse",
-    description:
-      "Engineered a decentralized application using Next.js, TypeScript, and Solidity to create a marketplace for AI prompts as NFTs. The platform features on-chain transactions, automated creator royalties (EIP-2981), and decentralized metadata storage via IPFS on a private Besu network.",
-    stack: "Next.js, TypeScript, Solidity, IPFS, Besu Network",
-    github: "https://github.com/abrar-khan-alvi/prompt-verse",
-    demo: "#",
+    title: "AuraStyle",
+    description: "A platform integrating Google Gemini AI for automated clothing analysis and outfit generation. Designed a privacy-focused digital wardrobe with a premium glassmorphic UI, utilizing local storage for secure data management.",
+    stack: "React, Google Gemini AI",
+    github: "#",
+    demo: "#"
   },
   {
     id: 2,
-    title: "AUST Overflow",
-    description:
-      "Developed a full-stack Q&A platform using ASP.NET MVC, JavaScript, and Firebase to enable user-driven content and community interaction. This platform allows users to ask questions, share knowledge, and engage in discussions, aiming to serve the academic community at Ahsanullah University of Science and Technology.",
-    stack: "ASP.NET MVC, JavaScript, Firebase",
-    github: "https://github.com/abrar-khan-alvi/AUST-Overflow",
-    demo: "#",
+    title: "Prompt Verse",
+    description: "Implemented on-chain automation, including EIP-2981 for creator royalties and integrated IPFS for decentralized metadata storage, delivering a secure and scalable Web3 frontend.",
+    stack: "Next.js, Solidity",
+    github: "https://github.com/abrar-khan-alvi/prompt-verse",
+    demo: "#"
   },
   {
     id: 3,
-    title: "OpenIUMS",
-    description:
-      "Developed a comprehensive Android application using Java and Firebase to streamline the open credit system for universities. This app simplifies the management of student credit, offering features like course registration, credit tracking, and seamless integration with university databases.",
-    stack: "Java, Firebase",
-    github: "https://github.com/abrar-khan-alvi/OpenIUMS",
-    demo: "#",
+    title: "AUST Nanosatellite Lab Website",
+    description: "Worked on the development of software systems for the AUST Nanosatellite Program, which focuses on designing and building a nanosatellite.",
+    stack: "React.js, Raspberry Pi, Firebase",
+    github: "#",
+    demo: "https://aust-sat.vercel.app/"
   },
   {
     id: 4,
-    title: "AI Chat Bot",
-    description:
-      "Developed a React-based AI chat application using Vite, providing an interactive and AI-powered chat interface similar to ChatGPT. The application allows users to have context-aware conversations with the bot and seamless API integration.",
-    stack: "React.js, Vite, TypeScript, Gemini API",
-    github: "https://github.com/abrar-khan-alvi/AI-Chatbot",
-    demo: "#",
-  },
-  {
-    id: 5,
-    title: "AUST Nanosatellite Lab Website",
-    description:
-      "Working on the development of software systems for the AUST Nanosatellite Program, which focuses on designing and building a nanosatellite. The website serves as a central hub for the program, providing updates, sensor data, and project status to both internal stakeholders and external audiences.",
-    stack: "HTML, CSS, JavaScript",
-    github: "https://github.com/abrar-khan-alvi/AUSTSat_Frontend",
-    demo: "https://aust-sat.vercel.app/",
-  },
-  {
-    id: 6,
-    title: "Silent Signal – Embedded System Project",
-    description:
-      "Designed and built a noise-reduction system using Arduino (C++) and NRF sensors to mitigate unnecessary car horn honking in urban environments. The system intelligently detects honking sounds and sends a signal to reduce noise pollution, making urban areas quieter and more peaceful.",
-    stack: "Arduino (C++), NRF Sensors",
-    github: "https://github.com/abrar-khan-alvi/SilentSignal",
-    demo: "#",
-  },
+    title: "Shonali Desh",
+    description: "Implemented an AI-powered agronomy service that predicts floods, salinity, and crop diseases to give farmers AI-driven guidance that reduces chemical misuse and crop loss.",
+    stack: "React, Tailwind CSS",
+    github: "#",
+    demo: "#"
+  }
 ];
-
 
 export const education = [
   {
     degree: "B.Sc. in Computer Science & Engineering",
-    institution: "Ahsanullah University of Science and Technology",
-    period: "2021 - Present",
-    details: "CGPA: 3.636 / 4.00 (till 4th year 1st semester)",
+    institution: "Ahsanullah University of Science & Technology",
+    period: "2021 - 2025",
+    details: "CGPA: 3.613 / 4.00",
+  }
+];
+
+export const experience = [
+  {
+    role: "AI Full-Stack Developer",
+    company: "Sparktech Agency Ltd",
+    period: "Jan 2026 - Present",
+    description: "Developed responsive UI components using React.js, Next.js and Tailwind CSS to interface with complex AI pipelines. Implementing RAG systems and LLM agents using LangChain and vector databases to build intelligent, context-aware applications."
   },
   {
-    degree: "Higher Secondary Certificate (H.S.C)",
-    institution: "Government City College, Chattogram",
-    period: "2018 - 2020",
-    details: "GPA: 5.00 / 5.00",
-  },
-  {
-    degree: "Secondary School Certificate (S.S.C)",
-    institution: "Bakalia Government High School, Chattogram",
-    period: "2012 - 2018",
-    details: "GPA: 5.00 / 5.00",
-  },
+    role: "Full Stack Developer",
+    company: "AUST Nano Satellite Lab, AUST",
+    period: "March 2025 - Dec 2025",
+    description: "Developed software systems for nanosatellite communication protocols and real-time monitoring. Collaborated with hardware teams to integrate sensor data using edge computing principles."
+  }
 ];
 
 export const extracurricular = [
-{
+  {
     role: "Vice President",
-    organization: "AUST Programming & Informatics Club (AUSTPIC)",
-    description:
-      "Led the organizing team for AUST Intra-University Programming Contest (IUPC) 2025 and later served as Vice President of AUSTPIC. As Vice President, I managed club activities, oversaw workshops, and led initiatives such as the AUST Job Fair 2025, Hands-on Workshop on AWS, CNCF, and GitHub for students.",
+    organization: "AUST Programming & Informatics Club",
+    description: "Led the organizing team for AUST Intra-University Programming Contest (IUPC) 2025 and managed club activities/workshops."
   },
   {
-    role: "Graphics Team & Organizer",
-    organization: "AUST CSE Carnival 5.0, AUST CSE Department",
-    description:
-      "Worked as part of the graphics team and organizer for the AUST CSE Carnival 5.0, contributing to design and promotional materials while supporting the overall event management.",
+    role: "Team Lead",
+    organization: "AUST Nano Satellite Lab",
+    description: "Led the software systems development team for the nanosatellite project."
   },
   {
-    role: "Researcher & Programmer",
-    organization: "AUSTSat Nano Satellite Program",
-    description: "Working on the development of software systems for the AUST Nanosatellite Program.",
+    role: "Judge (Junior Category)",
+    organization: "Bangladesh Artificial Intelligence Olympiad - BDAIO",
+    description: "Contributed as a judge for the AI Olympiad."
   },
   {
-    role: "Volunteer",
-    organization: "Bangladesh Open Source Network - BdOSN",
-    description: "Contributing as a volunteer for Bangladesh Artificial Intelligence Olympiad - BDAIO 2023.",
-  },
+    role: "Instructor",
+    organization: "Mojar School (AUST Environmental and Social Welfare Club)",
+    description: "Teaching and mentoring students."
+  }
 ];
 
 export const awards = [
   {
+    title: "Top 15 Finish in SOLVIO AI Hackathon",
+    issuer: "Sheba Platform",
+    year: "Dec 2025",
+  },
+  {
     title: "Top 10 Finish in SUST Hackathon",
     issuer: "SUST SWE Technovent",
-    year: "January 2023",
+    year: "Jan 2023",
   },
   {
-    title: "2nd Place in Junior Category, Intra AUST Programming Contest (IAPC)",
+    title: "1st Runner-up, Intra AUST Programming Contest (IAPC)",
     issuer: "AUST CSE Department",
-    year: "Spring 2022",
-  },
-  {
-    title: "5th Place in General Category, Intra AUST Programming Contest (IAPC)",
-    issuer: "AUST CSE Department",
-    year: "Fall 2022",
+    year: "Fall 2021",
   },
   {
     title: "AUST Merit Scholarship",
     issuer: "Ahsanullah University of Science and Technology",
-    year: "2021, 2022",
-  },
+    year: "1st year 1st/2nd semester",
+  }
 ];
 
 export const commands = [
   "help",
   "whois",
   "skills",
+  "experience",
   "projects",
   "education",
   "activities",
@@ -141,16 +118,23 @@ export const commands = [
   "clear",
   "init",
   "whoami",
-  "sudo",
+  "sudo"
 ];
 
-
-export const researchInfo = {
-  title: "Preserving Ownership and Trading of AI Prompts in Decentralized Manner via Hyperledger Besu-Based Blockchain and IPFS-Backed NFTs",
-  publication: "IEEE Xplore",
-  description: "First author of this paper published at IEEE Xplore and presented at the 2nd International Conference on Next-Generation Computing, IoT, and Machine Learning (NCIM 2025)",
-  link: "https://ieeexplore.ieee.org/document/11160076",
-};
+export const researchInfo = [
+  {
+    title: "Combating Price Manipulation in Agri-Food Supply Chains: A Hyperledger Fabric-Based Framework",
+    publication: "28th ICCIT 2025 (Accepted, IEEE Xplore)",
+    description: "Leveraging IoT, QR/RFID, and Real-Time Monitoring for Fair Pricing. First author of this paper.",
+    link: "#"
+  },
+  {
+    title: "Preserving Ownership and Trading of AI Prompts in Decentralized Manner via Hyperledger Besu-Based Blockchain and IPFS-Backed NFTs",
+    publication: "IEEE Xplore (NCIM 2025)",
+    description: "First author of this paper published and presented at the 2nd International Conference on Next-Generation Computing, IoT, and Machine Learning.",
+    link: "https://ieeexplore.ieee.org/document/11160076"
+  }
+];
 
 export const hobbies = {
   photography: {

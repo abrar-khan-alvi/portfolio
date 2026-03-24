@@ -5,11 +5,11 @@ import TerminalView from "../src/components/TerminalView";
 import CreativeGUI from "../src/components/CreatiiveGUI";
 
 const App = () => {
-  const [mode, setMode] = useState("terminal");
+  const [mode, setMode] = useState("creative");
 
-const MainView = () => (
-    <div className="h-screen bg-gray-900 font-mono text-green-400 flex flex-col lg:flex-row">
-      <LeftPane />
+  const MainView = () => (
+    <div className="h-screen w-full bg-[#020617] font-mono text-green-400 flex flex-col lg:flex-row overflow-hidden">
+      <LeftPane onSwitchMode={() => setMode("creative")} />
       <TerminalView onSwitchMode={() => setMode("creative")} />
     </div>
   );
@@ -20,6 +20,7 @@ const MainView = () => (
       {mode === "terminal" ? (
         <motion.div
           key="terminal"
+          className="h-screen w-full bg-[#020617]"
           exit={{ opacity: 0, scale: 0.9 }}
           transition={{ duration: 0.3 }}
         >

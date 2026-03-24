@@ -2,12 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Download } from 'lucide-react';
 
-const LeftPane = () => {
+const LeftPane = ({ onSwitchMode }) => {
   const imageUrl = "/profile.png";
-  const cvUrl = "/Abrar_Khan_Alvi_CV.pdf";
+  const cvUrl = "/Abrar%20Khan%20Alvi.pdf";
 
   return (
-    <div className="hidden lg:flex flex-col w-full lg:w-1/3 bg-gray-900/50 border-r border-green-900/50 p-6 space-y-6">
+    <div className="hidden lg:flex flex-col h-full w-full lg:w-1/3 bg-gray-900/50 border-r border-green-900/50 p-6 space-y-6 overflow-y-auto">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -31,7 +31,7 @@ const LeftPane = () => {
           ABRAR KHAN ALVI
         </h1>
         <p className="text-green-400">
-          Full-Stack Developer | Problem Solver
+          AI Full-Stack Developer | Problem Solver
         </p>
         <a
           href={cvUrl}

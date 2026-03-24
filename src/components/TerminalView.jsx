@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Terminal } from 'lucide-react';
 import { 
   projects, 
   commands, 
   researchInfo, 
   hobbies,
   education, 
+  experience,
   extracurricular, 
   awards 
 } from '../data/terminalData';
@@ -118,7 +120,7 @@ const TerminalView = ({ onSwitchMode }) => {
 
     switch (command) {
            case "help":
-        output = [{ type: "output", content: `Available commands:\n  whois                -  About Me\n  skills               -  My Technical Skillset\n  projects             -  List my major projects\n  projects <id>        -  View details...\n  education            -  My academic background\n  activities           -  My extracurricular involvement\n  awards               -  My awards and achievements\n  research             -  Details of my published paper\n  contact              -  How to Get in Touch\n  hobby                -  My hobbies and interests\n  clear                -  Clear the terminal screen` }];
+        output = [{ type: "output", content: `Available commands:\n  whois                -  About Me\n  skills               -  My Technical Skillset\n  experience           -  My Work Experience\n  projects             -  List my major projects\n  projects <id>        -  View details...\n  education            -  My academic background\n  activities           -  My extracurricular involvement\n  awards               -  My awards and achievements\n  research             -  Details of my published papers\n  contact              -  How to Get in Touch\n  hobby                -  My hobbies and interests\n  clear                -  Clear the terminal screen` }];
         break;
       case "whois":
         output = [{ type: "output", content: `Name: Abrar Khan Alvi\nA competitive programmer by passion and a full-stack engineer by practice. I thrive on solving new and difficult problems, whether it's building a decentralized AI application from scratch or architecting an efficient system. I am driven by a need to learn and build.` }];
@@ -128,11 +130,11 @@ const TerminalView = ({ onSwitchMode }) => {
   - Codeforces: https://codeforces.com/profile/alvi_saheb
   - CodeChef:   https://www.codechef.com/users/alvi_saaheb
   - LeetCode:   https://leetcode.com/u/abrar1khan2
-Languages:    JavaScript, TypeScript, Python, C, C++, Solidity
-Frontend:     React, Next.js, Tailwind CSS
-Backend:      Node.js, Express.js
-Database:     MongoDB, Firebase, MySQL
-Tools:        Git, Adobe Illustrator, Adobe Photoshop, Canva Pro, IPFS` }];
+Languages:    JavaScript, TypeScript, Python, C++, Java, PHP
+Frontend:     React.js, Node.js, Next.js, Tailwind CSS
+AI:           RAG, LangChain, LLM Agents, NLP
+Database:     MongoDB, Firebase, PostgreSQL
+Tools:        Git, Docker` }];
         break;
       case "projects":
         if (args.length === 0) {
@@ -152,6 +154,9 @@ Tools:        Git, Adobe Illustrator, Adobe Photoshop, Canva Pro, IPFS` }];
       case "education":
         output = [{ type: "output", content: education.map(e => `DEGREE:      ${e.degree}\nINSTITUTION: ${e.institution}\nPERIOD:      ${e.period}\nDETAILS:     ${e.details}`).join('\n\n') }];
         break;
+      case "experience":
+        output = [{ type: "output", content: experience.map(e => `ROLE:        ${e.role}\nCOMPANY:     ${e.company}\nPERIOD:      ${e.period}\nDESCRIPTION: ${e.description}`).join('\n\n') }];
+        break;
       case "activities":
         output = [{ type: "output", content: extracurricular.map(e => `ROLE:         ${e.role}\nORGANIZATION: ${e.organization}\nDESCRIPTION:  ${e.description}`).join('\n\n') }];
         break;
@@ -164,7 +169,7 @@ Tools:        Git, Adobe Illustrator, Adobe Photoshop, Canva Pro, IPFS` }];
         output = [{ type: "output", content: hobbyOutput }];
         break;
       case "research":
-        output = [{ type: "output", content: `TITLE: ${researchInfo.title} \nPUBLICATION: ${researchInfo.publication}\nDESCRIPTION: ${researchInfo.description}\nView Paper: ${researchInfo.link}` }];
+        output = [{ type: "output", content: researchInfo.map(r => `TITLE:       ${r.title}\nPUBLICATION: ${r.publication}\nDESCRIPTION: ${r.description}\nLINK:        ${r.link}`).join('\n\n') }];
         break;
       case "contact":
         output = [{ type: "output", content: `Email:    abrar1khan2@gmail.com\nGitHub:   github.com/abrar-khan-alvi\nLinkedIn: linkedin.com/in/abrar-khan-alvi` }];
@@ -227,8 +232,27 @@ Tools:        Git, Adobe Illustrator, Adobe Photoshop, Canva Pro, IPFS` }];
   };
 
   return (
-    <div className="flex-1 p-4 overflow-hidden bg-gray-900" onClick={() => inputRef.current?.focus()}>
-      <div ref={terminalRef} className="h-full overflow-y-auto">
+    <div className="flex-1 flex flex-col overflow-hidden bg-gray-900">
+      {/* Windows-Style Terminal Header */}
+      <div className="h-10 bg-[#0a0f1c] border-b border-gray-800 flex items-center justify-between pl-4 pr-0 sticky top-0 z-50 select-none shadow-md">
+        <div className="text-xs font-mono text-gray-400 flex items-center gap-2 font-bold tracking-wide">
+          <Terminal className="w-4 h-4 text-green-500" /> C:\alvi-os\system32\cmd.exe
+        </div>
+        <div className="flex items-center h-full">
+           <button className="h-full px-5 text-gray-500 hover:bg-gray-800 transition-colors flex items-center justify-center cursor-default">—</button>
+           <button className="h-full px-5 text-gray-500 hover:bg-gray-800 transition-colors flex items-center justify-center cursor-default">□</button>
+           <button 
+              onClick={(e) => { e.stopPropagation(); onSwitchMode(); }}
+              className="h-full px-5 text-gray-500 hover:bg-red-600 hover:text-white transition-colors flex items-center justify-center cursor-pointer"
+              title="Close Terminal"
+           >
+              ✕
+           </button>
+        </div>
+      </div>
+
+      <div className="flex-1 p-4 overflow-hidden bg-transparent" onClick={() => inputRef.current?.focus()}>
+        <div ref={terminalRef} className="h-full overflow-y-auto pb-4 pr-2">
         {terminalHistory.map((line, index) => {
           if (!line) return null;
           return (
@@ -239,7 +263,19 @@ Tools:        Git, Adobe Illustrator, Adobe Photoshop, Canva Pro, IPFS` }];
               {line.type === "output" && <TerminalOutputStatic text={line.content} />}
               {line.type === "error" && <div className="text-red-400">{line.content}</div>}
               {line.type === "prompt" && (
-                 <div className="flex items-center">
+                <div className="flex flex-col mb-1">
+                  <div className="flex flex-wrap gap-2 mb-3 mt-1">
+                    {['whois', 'experience', 'projects', 'skills', 'education', 'research', 'activities', 'awards', 'contact'].map(cmd => (
+                      <button 
+                        key={cmd} 
+                        onClick={() => executeCommand(cmd)} 
+                        className="text-xs px-3 py-1 border border-green-500/30 text-green-400 rounded-full hover:bg-green-500/20 transition-colors"
+                      >
+                        {cmd}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="flex items-center">
                     <span className="text-green-500 mr-2">guest@alvi-os:~$</span>
                     <input
                       ref={inputRef}
@@ -251,10 +287,12 @@ Tools:        Git, Adobe Illustrator, Adobe Photoshop, Canva Pro, IPFS` }];
                       autoFocus
                     />
                   </div>
+                </div>
               )}
             </div>
           );
         })}
+        </div>
       </div>
     </div>
   );
