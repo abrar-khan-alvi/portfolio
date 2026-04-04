@@ -18,7 +18,7 @@ const CreativeGUI = ({ onSwitchMode }) => {
     { id: 3, src: "/photo3.jpg", alt: "An architectural detail" },
     { id: 4, src: "/photo4.jpg", alt: "A vibrant street scene" },
   ];
-  
+
   const youtubeChannelUrl = hobbies.music.channel;
 
   // Custom Cursor
@@ -50,18 +50,18 @@ const CreativeGUI = ({ onSwitchMode }) => {
   useGSAP(() => {
     // Hero Animations
     const tl = gsap.timeline();
-    tl.fromTo(".hero-line", 
-      { y: 50, autoAlpha: 0 }, 
+    tl.fromTo(".hero-line",
+      { y: 50, autoAlpha: 0 },
       { y: 0, autoAlpha: 1, duration: 1, stagger: 0.15, ease: "power4.out", delay: 0.2 }
     ).to(".hero-glow", { opacity: 0.5, duration: 3, repeat: -1, yoyo: true, ease: "sine.inOut" }, "-=1");
 
     // Fix for ScrollTrigger sometimes calculating wrong heights on load
     setTimeout(() => {
       ScrollTrigger.refresh();
-      
+
       // Scroll Animations using fromTo to ensure visibility
       gsap.utils.toArray('.gsap-reveal').forEach((elem) => {
-        gsap.fromTo(elem, 
+        gsap.fromTo(elem,
           { autoAlpha: 0, y: 50 },
           {
             autoAlpha: 1,
@@ -79,7 +79,7 @@ const CreativeGUI = ({ onSwitchMode }) => {
 
       // Staggered Cards
       gsap.utils.toArray('.gsap-stagger-container').forEach((cont) => {
-        gsap.fromTo(cont.children, 
+        gsap.fromTo(cont.children,
           { autoAlpha: 0, y: 30 },
           {
             autoAlpha: 1,
@@ -98,32 +98,59 @@ const CreativeGUI = ({ onSwitchMode }) => {
 
       // Universal Timeline Line Drawing
       gsap.utils.toArray('.timeline-container').forEach((cont) => {
-         const line = cont.querySelector('.timeline-line');
-         if (line) {
-            gsap.fromTo(line, 
-               { scaleY: 0 },
-               {
-                 scaleY: 1,
-                 transformOrigin: "top center",
-                 ease: "none",
-                 scrollTrigger: {
-                   trigger: cont,
-                   start: "top 60%",
-                   end: "bottom 40%",
-                   scrub: 1
-                 }
-               }
-            );
-         }
+        const line = cont.querySelector('.timeline-line');
+        if (line) {
+          gsap.fromTo(line,
+            { scaleY: 0 },
+            {
+              scaleY: 1,
+              transformOrigin: "top center",
+              ease: "none",
+              scrollTrigger: {
+                trigger: cont,
+                start: "top 60%",
+                end: "bottom 40%",
+                scrub: 1
+              }
+            }
+          );
+        }
+      });
+
+      // Education Scrolling Perspective FX
+      gsap.utils.toArray('.edu-card').forEach((card) => {
+        gsap.fromTo(card,
+          { 
+            opacity: 0,
+            scale: 0.8,
+            rotationX: -45,
+            y: 50,
+            transformPerspective: 1000,
+            transformOrigin: "top center"
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            rotationX: 0,
+            y: 0,
+            duration: 1.2,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
       });
     }, 100);
 
   }, { scope: container });
 
   const skills = [
-    "JavaScript", "TypeScript", "Python", "C++", "Java", "Solidity", 
-    "React.js", "Next.js", "Node.js", "Tailwind CSS", 
-    "RAG", "LangChain", "LLM Agents", "NLP", 
+    "JavaScript", "TypeScript", "Python", "C++", "Java", "Solidity",
+    "React.js", "Next.js", "Node.js", "Tailwind CSS",
+    "RAG", "LangChain", "LLM Agents", "NLP",
     "MongoDB", "PostgreSQL", "Firebase", "Docker", "IPFS"
   ];
 
@@ -134,8 +161,8 @@ const CreativeGUI = ({ onSwitchMode }) => {
       <div ref={cursorFollowerRef} className="fixed top-0 left-0 w-8 h-8 border border-cyan-500/50 rounded-full pointer-events-none z-[99] -translate-x-1/2 -translate-y-1/2 transition-transform duration-100 ease-out hidden md:block"></div>
 
       {/* Cyber Grid Background */}
-      <div className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: 'linear-gradient(rgba(34, 211, 238, 1) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 211, 238, 1) 1px, transparent 1px)', backgroundSize: '50px 50px' }}>
+      <div className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none"
+        style={{ backgroundImage: 'linear-gradient(rgba(34, 211, 238, 1) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 211, 238, 1) 1px, transparent 1px)', backgroundSize: '50px 50px' }}>
       </div>
       <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(8,112,184,0.15),rgba(2,6,23,1))] pointer-events-none"></div>
 
@@ -149,18 +176,18 @@ const CreativeGUI = ({ onSwitchMode }) => {
       </button>
 
       <div className="relative z-10 container mx-auto px-6 py-20 md:py-32 max-w-6xl">
-        
+
         {/* HERO SECTION */}
         <header className="min-h-[80vh] flex flex-col md:flex-row justify-center md:items-center items-start mb-20 relative gap-12">
           <div className="hero-glow absolute top-10 -left-20 w-72 h-72 md:w-96 md:h-96 bg-cyan-600/20 blur-[100px] rounded-full pointer-events-none hidden md:block"></div>
-          
+
           <div className="flex-1 order-2 md:order-1">
             <div className="overflow-hidden mb-6">
               <span className="hero-line block font-mono text-cyan-500 tracking-wider text-xs md:text-sm uppercase items-center flex gap-3">
-                <Sparkles className="w-4 h-4"/> System.initialize('Abrar_Khan_Alvi')
+                <Sparkles className="w-4 h-4" /> System.initialize('Abrar_Khan_Alvi')
               </span>
             </div>
-            
+
             <div className="overflow-hidden">
               <h1 className="hero-line text-5xl md:text-7xl lg:text-[5.5rem] font-black text-white tracking-tighter leading-none mb-2">
                 Architecting
@@ -171,7 +198,7 @@ const CreativeGUI = ({ onSwitchMode }) => {
                 Intelligence.
               </h1>
             </div>
-            
+
             <div className="overflow-hidden mb-12">
               <p className="hero-line text-lg md:text-2xl text-slate-400 max-w-2xl font-light leading-relaxed border-l-2 border-cyan-500/50 pl-6">
                 AI Full-Stack Developer integrating <span className="text-cyan-300 font-medium tracking-wide">Large Language Models</span>, decentralized networks, and scalable architectures to solve complex computational problems.
@@ -180,30 +207,30 @@ const CreativeGUI = ({ onSwitchMode }) => {
 
             <div className="overflow-hidden">
               <div className="hero-line flex flex-wrap gap-4">
-                  <a href="/Abrar%20Khan%20Alvi.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-6 py-3 rounded-md font-bold font-mono text-sm tracking-wide transition-colors cursor-none">
+                <a href="/Abrar%20Khan%20Alvi.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-cyan-500 hover:bg-cyan-400 text-slate-950 px-6 py-3 rounded-md font-bold font-mono text-sm tracking-wide transition-colors cursor-none">
                   <Download className="w-4 h-4" /> CV.download()
-                  </a>
-                  <a href="https://github.com/abrar-khan-alvi" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-slate-900 border border-slate-700 text-slate-300 px-6 py-3 rounded-md font-bold font-mono text-sm hover:!bg-slate-800 hover:text-white transition-colors cursor-none">
+                </a>
+                <a href="https://github.com/abrar-khan-alvi" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-slate-900 border border-slate-700 text-slate-300 px-6 py-3 rounded-md font-bold font-mono text-sm hover:!bg-slate-800 hover:text-white transition-colors cursor-none">
                   <Code className="w-4 h-4" /> GitHub.open()
-                  </a>
+                </a>
               </div>
             </div>
           </div>
 
           <div className="flex-1 order-1 md:order-2 flex justify-center md:justify-end w-full mt-10 md:mt-0">
-             <div className="hero-line relative w-full max-w-[16rem] md:max-w-[20rem] lg:max-w-[24rem] shrink-0">
-                <div className="absolute -inset-4 md:-inset-6 border border-cyan-500/30 bg-cyan-950/20 rounded-2xl transform rotate-3 transition-transform duration-700 hover:rotate-6"></div>
-                <div className="absolute -inset-4 md:-inset-6 border border-purple-500/30 bg-purple-950/20 rounded-2xl transform -rotate-2 transition-transform duration-700 hover:-rotate-4"></div>
-                
-                <div className="relative rounded-2xl border border-slate-700 bg-[#0a0f1c] shadow-[0_0_50px_rgba(34,211,238,0.15)] overflow-hidden group">
-                   <img 
-                     src="/profile.png" 
-                     alt="Abrar Khan Alvi" 
-                     className="w-full h-auto object-contain grayscale hover:grayscale-0 transition-all duration-700 transform group-hover:scale-[1.03]" 
-                   />
-                   <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-60 pointer-events-none"></div>
-                </div>
-             </div>
+            <div className="hero-line relative w-full max-w-[16rem] md:max-w-[20rem] lg:max-w-[24rem] shrink-0">
+              <div className="absolute -inset-4 md:-inset-6 border border-cyan-500/30 bg-cyan-950/20 rounded-2xl transform rotate-3 transition-transform duration-700 hover:rotate-6"></div>
+              <div className="absolute -inset-4 md:-inset-6 border border-purple-500/30 bg-purple-950/20 rounded-2xl transform -rotate-2 transition-transform duration-700 hover:-rotate-4"></div>
+
+              <div className="relative rounded-2xl border border-slate-700 bg-[#0a0f1c] shadow-[0_0_50px_rgba(34,211,238,0.15)] overflow-hidden group">
+                <img
+                  src="/profile.png"
+                  alt="Abrar Khan Alvi"
+                  className="w-full h-auto object-contain grayscale hover:grayscale-0 transition-all duration-700 transform group-hover:scale-[1.03]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-60 pointer-events-none"></div>
+              </div>
+            </div>
           </div>
         </header>
 
@@ -214,15 +241,15 @@ const CreativeGUI = ({ onSwitchMode }) => {
             <h2 className="text-xl md:text-2xl font-mono text-white tracking-wider uppercase">Execution_Context (Experience)</h2>
             <div className="h-[1px] flex-grow bg-gradient-to-r from-purple-500/50 to-transparent"></div>
           </div>
-          
+
           <div className="relative pl-8 md:pl-16 border-l-2 border-slate-800/50 ml-4 md:ml-8">
             <div className="timeline-line absolute left-[-2px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-cyan-500 via-purple-500 to-transparent origin-top z-0"></div>
-            
+
             {experience.map((exp, idx) => (
               <div key={idx} className="mb-16 relative gsap-reveal group">
                 <div className="absolute top-1/2 -translate-y-1/2 left-[-41px] md:left-[-73px] w-4 h-4 rounded-full bg-[#020617] border-[2px] border-cyan-400 z-10 shadow-[0_0_10px_#22d3ee] transition-all duration-300 group-hover:scale-[1.3] group-hover:bg-cyan-500/20"></div>
                 <div className="absolute top-1/2 -translate-y-1/2 left-[-25px] md:left-[-57px] w-[25px] md:w-[57px] h-[2px] bg-slate-800 group-hover:bg-cyan-500/50 transition-colors duration-300 z-0"></div>
-                
+
                 <div className="bg-[#0a0f1c] border border-slate-800 p-8 rounded-xl hover:border-cyan-500/40 transition-all overflow-hidden relative cursor-none hover:-translate-y-1 w-full shadow-lg">
                   <div className="absolute top-0 left-0 w-1 h-full bg-cyan-500 scale-y-0 group-hover:scale-y-100 transition-transform origin-top"></div>
                   <span className="text-xs font-mono text-cyan-400 mb-4 block bg-cyan-950/40 w-fit px-3 py-1 rounded border border-cyan-900/30">{exp.period}</span>
@@ -236,20 +263,35 @@ const CreativeGUI = ({ onSwitchMode }) => {
         </section>
 
         {/* 2. EDUCATION */}
-        <section className="mb-32">
-          <div className="flex items-center gap-4 mb-10 gsap-reveal">
+        <section className="mb-32 perspective-1000">
+          <div className="flex items-center gap-4 mb-16 gsap-reveal">
             <GraduationCap className="w-6 h-6 text-indigo-400" />
             <h2 className="text-xl md:text-2xl font-mono text-white tracking-wider uppercase">Education.Dat()</h2>
             <div className="h-[1px] flex-grow bg-gradient-to-r from-indigo-500/50 to-transparent"></div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gsap-stagger-container">
+          
+          <div className="flex flex-col gap-6 max-w-4xl mx-auto">
             {education.map((edu, idx) => (
-              <div key={idx} className="bg-[#0a0f1c] border border-slate-800 p-8 rounded-xl hover:border-indigo-500/50 transition-all cursor-none relative overflow-hidden group hover:-translate-y-1">
-                <div className="absolute top-0 left-0 w-full h-1 bg-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-                <span className="text-indigo-400 font-mono text-xs whitespace-nowrap mb-6 block bg-indigo-500/10 px-3 py-1 rounded w-fit">{edu.period}</span>
-                <h3 className="text-xl font-bold text-slate-100 mb-2">{edu.degree}</h3>
-                <p className="text-slate-400 text-sm mb-6">{edu.institution}</p>
-                <p className="text-emerald-400 font-mono text-sm bg-slate-900 border border-slate-700 inline-block px-3 py-1.5 rounded relative z-10">{edu.details}</p>
+              <div key={idx} className="edu-card relative bg-gradient-to-r from-indigo-950/30 to-[#0a0f1c] border border-indigo-900/40 rounded-2xl p-8 lg:p-10 overflow-hidden shadow-xl hover:border-indigo-500/50 hover:shadow-[0_0_30px_rgba(99,102,241,0.15)] transition-all group cursor-none hover:-translate-y-1">
+                <div className="absolute right-0 top-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl group-hover:bg-indigo-500/10 transition-colors"></div>
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 z-10 relative">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-4 mb-4">
+                      <span className="inline-block px-3 py-1 rounded bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 font-mono text-xs shadow-[0_0_10px_rgba(99,102,241,0.1)]">
+                        {edu.period}
+                      </span>
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-indigo-300 transition-colors">{edu.degree}</h3>
+                    <p className="text-slate-400 text-sm md:text-base">{edu.institution}</p>
+                  </div>
+                  <div className="md:text-right flex-shrink-0">
+                    <p className="inline-flex items-center justify-center px-5 py-3 border border-emerald-900/50 bg-emerald-950/20 text-emerald-400 font-mono text-sm rounded relative overflow-hidden group-hover:shadow-[0_0_15px_rgba(52,211,153,0.15)] transition-all">
+                      <span className="relative z-10 font-bold">{edu.details}</span>
+                      <span className="absolute inset-0 bg-emerald-500/10 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300"></span>
+                    </p>
+                  </div>
+                </div>
+                <div className="absolute left-0 top-0 w-1 h-full bg-indigo-500 scale-y-0 group-hover:scale-y-100 transition-transform origin-top duration-500"></div>
               </div>
             ))}
           </div>
@@ -267,19 +309,19 @@ const CreativeGUI = ({ onSwitchMode }) => {
             {projects.map((project) => (
               <div key={project.id} className="group relative bg-[#0a0f1c] border border-slate-800 p-8 rounded-xl flex flex-col h-full hover:border-emerald-500/50 transition-all z-10 cursor-none hover:-translate-y-2">
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl pointer-events-none"></div>
-                
+
                 <div className="flex justify-between items-start mb-6 z-10">
                   <h3 className="text-2xl font-bold text-white group-hover:text-emerald-400 transition-colors">{project.title}</h3>
                   <ExternalLink className="w-5 h-5 text-slate-600 group-hover:text-emerald-400 transition-colors" />
                 </div>
                 <p className="text-slate-400 text-sm mb-8 leading-relaxed flex-grow z-10">{project.description}</p>
-                
+
                 <div className="z-10 mb-8">
                   <p className="text-xs font-mono text-emerald-400 bg-emerald-950/30 inline-block px-3 py-1.5 rounded border border-emerald-900/30">
                     {project.stack}
                   </p>
                 </div>
-                
+
                 <div className="flex gap-4 mt-auto pt-6 border-t border-slate-800/80 z-10">
                   {project.github !== "#" && (
                     <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-xs font-mono tracking-wider flex items-center gap-2 text-slate-400 hover:text-white transition-colors cursor-none">
@@ -312,7 +354,7 @@ const CreativeGUI = ({ onSwitchMode }) => {
                 <p className="text-sm text-slate-400 leading-relaxed mb-6 flex-grow">{res.description}</p>
                 {res.link !== "#" && (
                   <a href={res.link} target="_blank" rel="noopener noreferrer" className="text-xs font-mono font-bold text-pink-400 hover:text-pink-300 flex items-center gap-2 cursor-none w-fit">
-                    READ_PAPER <ExternalLink className="w-4 h-4"/>
+                    READ_PAPER <ExternalLink className="w-4 h-4" />
                   </a>
                 )}
               </div>
@@ -343,17 +385,17 @@ const CreativeGUI = ({ onSwitchMode }) => {
             <h2 className="text-xl md:text-2xl font-mono text-white tracking-wider uppercase">Evolution_Log (Achievements)</h2>
             <div className="h-[1px] flex-grow bg-gradient-to-r from-amber-500/50 to-transparent"></div>
           </div>
-          
+
           <div className="relative pl-8 md:pl-16 border-l-2 border-slate-800/50 ml-4 md:ml-8">
             <div className="timeline-line absolute left-[-2px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-amber-500 via-orange-500 to-transparent origin-top z-0"></div>
-            
+
             {awards.map((award, idx) => (
               <div key={idx} className="mb-12 relative gsap-reveal group">
                 <div className="absolute top-1/2 -translate-y-1/2 left-[-41px] md:left-[-73px] w-4 h-4 rounded-full bg-[#020617] border-[2px] border-amber-400 z-10 shadow-[0_0_15px_#fbbf24] transition-all duration-300 group-hover:scale-[1.3] group-hover:bg-amber-500/20">
                   <div className="absolute inset-[3px] bg-amber-400/80 rounded-full animate-ping"></div>
                 </div>
                 <div className="absolute top-1/2 -translate-y-1/2 left-[-25px] md:left-[-57px] w-[25px] md:w-[57px] h-[2px] bg-slate-800 group-hover:bg-amber-500/50 transition-colors duration-300 z-0"></div>
-                
+
                 <div className="bg-[#0a0f1c] border border-slate-800 p-8 rounded-xl hover:border-amber-500/40 transition-all overflow-hidden relative cursor-none hover:-translate-y-1 w-full shadow-lg">
                   <div className="absolute top-0 left-0 w-1 h-full bg-amber-500 scale-y-0 group-hover:scale-y-100 transition-transform origin-top"></div>
                   <span className="text-xs font-mono text-amber-400 mb-4 block bg-amber-950/40 w-fit px-3 py-1 rounded border border-amber-900/30">{award.year}</span>
@@ -407,11 +449,10 @@ const CreativeGUI = ({ onSwitchMode }) => {
                       href={link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex items-center gap-4 px-5 py-4 rounded-xl border transition-all cursor-none group ${
-                        isFacebook
+                      className={`flex items-center gap-4 px-5 py-4 rounded-xl border transition-all cursor-none group ${isFacebook
                           ? "border-blue-800/50 bg-blue-950/20 hover:border-blue-500/60 hover:bg-blue-950/40"
                           : "border-red-800/50 bg-red-950/20 hover:border-red-500/60 hover:bg-red-950/40"
-                      }`}
+                        }`}
                     >
                       <span className={`text-2xl`}>{isFacebook ? "📘" : "📌"}</span>
                       <div className="flex flex-col">
@@ -447,24 +488,24 @@ const CreativeGUI = ({ onSwitchMode }) => {
       <footer className="mt-32 border-t border-slate-800 bg-[#020617] py-20 relative overflow-hidden gsap-reveal">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-cyan-900/10 pointer-events-none"></div>
         <div className="container mx-auto px-6 max-w-4xl text-center relative z-10">
-           <h2 className="text-4xl md:text-6xl font-black text-slate-800 tracking-tighter mb-4">
-              [ EOF ]
-           </h2>
-           <div className="inline-flex items-center justify-center gap-4 mb-12 flex-wrap">
-              <a href="mailto:abrarkhanalvi27@gmail.com" className="font-mono text-sm text-cyan-400 hover:text-white transition-colors border border-cyan-800 bg-cyan-950/30 px-6 py-3 rounded hover:bg-cyan-900/50 cursor-none">
-                INITIATE_CONTACT
-              </a>
-              <a href="https://linkedin.com/in/abrar-khan-alvi" target="_blank" rel="noopener noreferrer" className="font-mono text-sm text-blue-400 hover:text-white transition-colors border border-blue-800 bg-blue-950/30 px-6 py-3 rounded hover:bg-blue-900/50 cursor-none">
-                LINKEDIN
-              </a>
-              <a href="https://github.com/abrar-khan-alvi" target="_blank" rel="noopener noreferrer" className="font-mono text-sm text-slate-300 hover:text-white transition-colors border border-slate-700 bg-slate-800/50 px-6 py-3 rounded hover:bg-slate-700/80 cursor-none">
-                GITHUB
-              </a>
-           </div>
-           <p className="font-mono text-xs text-slate-500 uppercase tracking-widest border-t border-slate-800 pt-8 max-w-md mx-auto">
-             SYSTEM ARCHITECTURE FINALISED<br/>
-             <span className="text-cyan-600">© 2026 ABRAR KHAN ALVI. ALL PROTOCOLS SECURED.</span>
-           </p>
+          <h2 className="text-4xl md:text-6xl font-black text-slate-800 tracking-tighter mb-4">
+            [ EOF ]
+          </h2>
+          <div className="inline-flex items-center justify-center gap-4 mb-12 flex-wrap">
+            <a href="mailto:abrarkhanalvi27@gmail.com" className="font-mono text-sm text-cyan-400 hover:text-white transition-colors border border-cyan-800 bg-cyan-950/30 px-6 py-3 rounded hover:bg-cyan-900/50 cursor-none">
+              INITIATE_CONTACT
+            </a>
+            <a href="https://linkedin.com/in/abrar-khan-alvi" target="_blank" rel="noopener noreferrer" className="font-mono text-sm text-blue-400 hover:text-white transition-colors border border-blue-800 bg-blue-950/30 px-6 py-3 rounded hover:bg-blue-900/50 cursor-none">
+              LINKEDIN
+            </a>
+            <a href="https://github.com/abrar-khan-alvi" target="_blank" rel="noopener noreferrer" className="font-mono text-sm text-slate-300 hover:text-white transition-colors border border-slate-700 bg-slate-800/50 px-6 py-3 rounded hover:bg-slate-700/80 cursor-none">
+              GITHUB
+            </a>
+          </div>
+          <p className="font-mono text-xs text-slate-500 uppercase tracking-widest border-t border-slate-800 pt-8 max-w-md mx-auto">
+            SYSTEM ARCHITECTURE FINALISED<br />
+            <span className="text-cyan-600">© 2026 ABRAR KHAN ALVI. ALL PROTOCOLS SECURED.</span>
+          </p>
         </div>
       </footer>
     </div>

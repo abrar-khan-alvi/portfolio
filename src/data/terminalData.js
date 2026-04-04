@@ -39,12 +39,24 @@ export const education = [
     institution: "Ahsanullah University of Science & Technology",
     period: "2021 - 2025",
     details: "CGPA: 3.613 / 4.00",
+  },
+  {
+    degree: "Higher Secondary Certificate (H.S.C)",
+    institution: "Government City College, Chattogram",
+    period: "2018 - 2020",
+    details: "Field of study: Science | GPA: 5.00/5.00",
+  },
+  {
+    degree: "Secondary School Certificate (S.S.C)",
+    institution: "Bakalia Government High School",
+    period: "2012 - 2018",
+    details: "Field of study: Science | GPA: 5.00/5.00",
   }
 ];
 
 export const experience = [
   {
-    role: "AI Full-Stack Developer",
+    role: "AI Full-Stack Engineer",
     company: "Sparktech Agency Ltd",
     period: "Jan 2026 - Present",
     description: "Developed responsive UI components using React.js, Next.js and Tailwind CSS to interface with complex AI pipelines. Implementing RAG systems and LLM agents using LangChain and vector databases to build intelligent, context-aware applications."
@@ -52,7 +64,7 @@ export const experience = [
   {
     role: "Full Stack Developer",
     company: "AUST Nano Satellite Lab, AUST",
-    period: "March 2025 - Dec 2025",
+    period: "Jan 2025 - Dec 2025",
     description: "Developed software systems for nanosatellite communication protocols and real-time monitoring. Collaborated with hardware teams to integrate sensor data using edge computing principles."
   }
 ];
@@ -140,7 +152,7 @@ export const hobbies = {
   photography: {
     description: "I enjoy capturing moments and landscapes. You can see some of my work on Facebook & Pinterest.",
     links: [
-      "https://www.facebook.com/share/p/1B2PWF8VaJ/", 
+      "https://www.facebook.com/share/p/1B2PWF8VaJ/",
       "https://www.facebook.com/share/p/17G9z92aSf/",
       "https://pin.it/3p6y4Ulyb",
       "https://pin.it/6TJaAhpZL"

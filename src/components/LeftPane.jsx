@@ -18,7 +18,7 @@ const LeftPane = ({ onSwitchMode }) => {
         <img
           src={imageUrl}
           alt="Abrar Khan Alvi"
-          className="relative w-full h-auto object-cover rounded-lg grayscale hover:grayscale-0 transition duration-300"
+          className="relative w-full h-auto object-cover rounded-lg transition duration-300"
         />
       </motion.div>
 
