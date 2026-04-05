@@ -8,7 +8,8 @@ import {
   education, 
   experience,
   extracurricular, 
-  awards 
+  awards,
+  competitiveProgramming
 } from '../data/terminalData';
 
 // Helper components can be in this file or their own
@@ -120,7 +121,20 @@ const TerminalView = ({ onSwitchMode }) => {
 
     switch (command) {
            case "help":
-        output = [{ type: "output", content: `Available commands:\n  whois                -  About Me\n  skills               -  My Technical Skillset\n  experience           -  My Work Experience\n  projects             -  List my major projects\n  projects <id>        -  View details...\n  education            -  My academic background\n  activities           -  My extracurricular involvement\n  awards               -  My awards and achievements\n  research             -  Details of my published papers\n  contact              -  How to Get in Touch\n  hobby                -  My hobbies and interests\n  clear                -  Clear the terminal screen` }];
+        output = [{ type: "output", content: `Available commands:
+  whois                -  About Me
+  skills               -  My Technical Skillset
+  cp                   -  Competitive Programming Profile
+  experience           -  My Work Experience
+  projects             -  List my major projects
+  projects <id>        -  View details...
+  education            -  My academic background
+  activities           -  My extracurricular involvement
+  awards               -  My awards and achievements
+  research             -  Details of my published papers
+  contact              -  How to Get in Touch
+  hobby                -  My hobbies and interests
+  clear                -  Clear the terminal screen` }];
         break;
       case "whois":
         output = [{ type: "output", content: `Name: Abrar Khan Alvi\nA competitive programmer by passion and a full-stack engineer by practice. I thrive on solving new and difficult problems, whether it's building a decentralized AI application from scratch or architecting an efficient system. I am driven by a need to learn and build.` }];
@@ -138,14 +152,22 @@ Tools:        Git, Docker` }];
         break;
       case "projects":
         if (args.length === 0) {
-          const allProjectsDetails = projects.map(p => 
-            `[${p.id}] TITLE:       ${p.title}\nTECH STACK:  ${p.stack}`
-          ).join('\n----------------------------------------\n');
-          output = [{ type: "output", content: allProjectsDetails }];
+          const categories = [
+            { key: 'website', label: '── WEBSITES ──────────────────────────────' },
+            { key: 'app',     label: '── APPS ──────────────────────────────────' },
+            { key: 'hardware',label: '── HARDWARE ──────────────────────────────' },
+          ];
+          const grouped = categories.map(cat => {
+            const catProjects = projects.filter(p => p.category === cat.key);
+            if (catProjects.length === 0) return '';
+            const lines = catProjects.map(p => `  [${p.id}] ${p.title}\n       Stack: ${p.stack}`).join('\n');
+            return `${cat.label}\n${lines}`;
+          }).filter(Boolean).join('\n\n');
+          output = [{ type: "output", content: `${grouped}\n\nType 'projects <id>' for full project details.` }];
         } else {
           const project = projects.find((p) => p.id === parseInt(args[0]));
           if (project) {
-            output = [{ type: "output", content: `TITLE:       ${project.title}\nDESCRIPTION: ${project.description}\nTECH STACK:  ${project.stack}\nLINKS:       Github: ${project.github} Live Demo: ${project.demo}` }];
+            output = [{ type: "output", content: `TITLE:       ${project.title}\nCATEGORY:    ${project.category.toUpperCase()}\nDESCRIPTION: ${project.description}\nTECH STACK:  ${project.stack}\nGITHUB:      ${project.github}\nLIVE DEMO:   ${project.demo}` }];
           } else {
             output = [{ type: "error", content: `Error: Project ID '${args[0]}' not found.` }];
           }
@@ -173,6 +195,15 @@ Tools:        Git, Docker` }];
         break;
       case "contact":
         output = [{ type: "output", content: `Email:    abrar1khan2@gmail.com\nGitHub:   github.com/abrar-khan-alvi\nLinkedIn: linkedin.com/in/abrar-khan-alvi` }];
+        break;
+      case "cp":
+        const platformDetails = competitiveProgramming.platforms.map(p => 
+          `${p.name.padEnd(12)}: Handle: ${p.link}${p.rating ? ` (Max Rating: ${p.rating})` : ''}`
+        ).join('\n');
+        const contestDetails = competitiveProgramming.contests.map(c => 
+          `- ${c.rank} in ${c.name}\n  Team: ${c.team}`
+        ).join('\n');
+        output = [{ type: "output", content: `${competitiveProgramming.summary}\n\nPLATFORMS\n---------\n${platformDetails}\n\nCONTESTS\n--------\n${contestDetails}\n\nGitHub: ${competitiveProgramming.github}` }];
         break;
       case "clear":
         setTerminalHistory([{ type: "prompt" }]);
@@ -265,7 +296,7 @@ Tools:        Git, Docker` }];
               {line.type === "prompt" && (
                 <div className="flex flex-col mb-1">
                   <div className="flex flex-wrap gap-2 mb-3 mt-1">
-                    {['whois', 'experience', 'projects', 'skills', 'education', 'research', 'activities', 'awards', 'contact'].map(cmd => (
+                    {['whois', 'experience', 'projects', 'skills', 'cp', 'education', 'research', 'activities', 'awards', 'contact'].map(cmd => (
                       <button 
                         key={cmd} 
                         onClick={() => executeCommand(cmd)} 

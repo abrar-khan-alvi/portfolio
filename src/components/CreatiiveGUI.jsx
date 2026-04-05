@@ -1,11 +1,190 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { Terminal, Cpu, Database, Network, Award, BookOpen, Camera, Music, ExternalLink, Code, Layers, Sparkles, Youtube, Download, GraduationCap } from 'lucide-react';
-import { projects, experience, education, extracurricular, awards, researchInfo, hobbies } from '../data/terminalData';
+import { Terminal, Cpu, Database, Network, Award, BookOpen, Camera, Music, ExternalLink, Code, Layers, Sparkles, Youtube, Download, GraduationCap, Trophy, Target, Globe, Smartphone, Microchip } from 'lucide-react';
+import { projects, experience, education, extracurricular, awards, researchInfo, hobbies, competitiveProgramming } from '../data/terminalData';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// ── PROJECTS TABBED SECTION ──────────────────────────────────────────────────
+const PROJECT_TABS = [
+  {
+    id: 'website',
+    label: 'Websites',
+    icon: Globe,
+    accent: {
+      text: 'text-emerald-400',
+      border: 'border-emerald-500/50',
+      bg: 'bg-emerald-950/30',
+      tagBg: 'bg-emerald-950/30',
+      tagBorder: 'border-emerald-900/30',
+      tagText: 'text-emerald-400',
+      hoverBorder: 'hover:border-emerald-500/50',
+      hoverGlow: 'hover:shadow-[0_0_25px_rgba(16,185,129,0.1)]',
+      gradFrom: 'from-emerald-500/5',
+      activeBg: 'bg-emerald-500/10',
+      activeBorder: 'border-emerald-500/40',
+      glow: 'from-emerald-500/50',
+      linkText: 'text-emerald-400',
+      linkHover: 'hover:text-emerald-300',
+      dot: 'bg-emerald-400',
+    }
+  },
+  {
+    id: 'app',
+    label: 'Apps',
+    icon: Smartphone,
+    accent: {
+      text: 'text-violet-400',
+      border: 'border-violet-500/50',
+      bg: 'bg-violet-950/30',
+      tagBg: 'bg-violet-950/30',
+      tagBorder: 'border-violet-900/30',
+      tagText: 'text-violet-400',
+      hoverBorder: 'hover:border-violet-500/50',
+      hoverGlow: 'hover:shadow-[0_0_25px_rgba(139,92,246,0.1)]',
+      gradFrom: 'from-violet-500/5',
+      activeBg: 'bg-violet-500/10',
+      activeBorder: 'border-violet-500/40',
+      glow: 'from-violet-500/50',
+      linkText: 'text-violet-400',
+      linkHover: 'hover:text-violet-300',
+      dot: 'bg-violet-400',
+    }
+  },
+  {
+    id: 'hardware',
+    label: 'Hardware',
+    icon: Microchip,
+    accent: {
+      text: 'text-orange-400',
+      border: 'border-orange-500/50',
+      bg: 'bg-orange-950/30',
+      tagBg: 'bg-orange-950/30',
+      tagBorder: 'border-orange-900/30',
+      tagText: 'text-orange-400',
+      hoverBorder: 'hover:border-orange-500/50',
+      hoverGlow: 'hover:shadow-[0_0_25px_rgba(249,115,22,0.1)]',
+      gradFrom: 'from-orange-500/5',
+      activeBg: 'bg-orange-500/10',
+      activeBorder: 'border-orange-500/40',
+      glow: 'from-orange-500/50',
+      linkText: 'text-orange-400',
+      linkHover: 'hover:text-orange-300',
+      dot: 'bg-orange-400',
+    }
+  },
+];
+
+const ProjectsSection = ({ projects }) => {
+  const [activeTab, setActiveTab] = useState('website');
+  const filteredProjects = projects.filter(p => p.category === activeTab);
+  const tab = PROJECT_TABS.find(t => t.id === activeTab);
+  const a = tab.accent;
+
+  return (
+    <section className="mb-32">
+      {/* Section Header */}
+      <div className="flex items-center gap-4 mb-10 gsap-reveal">
+        <Database className="w-6 h-6 text-emerald-400" />
+        <h2 className="text-xl md:text-2xl font-mono text-white tracking-wider uppercase">Deployed_Nodes (Projects)</h2>
+        <div className="h-[1px] flex-grow bg-gradient-to-r from-emerald-500/50 to-transparent"></div>
+      </div>
+
+      {/* Tab Bar */}
+      <div className="flex gap-2 mb-10 p-1.5 bg-[#0a0f1c] border border-slate-800 rounded-xl w-fit">
+        {PROJECT_TABS.map((t) => {
+          const isActive = t.id === activeTab;
+          const Icon = t.icon;
+          return (
+            <button
+              key={t.id}
+              onClick={() => setActiveTab(t.id)}
+              className={`
+                relative flex items-center gap-2.5 px-5 py-2.5 rounded-lg font-mono text-sm
+                tracking-wider transition-all duration-300 cursor-none
+                ${isActive
+                  ? `${t.accent.activeBg} ${t.accent.text} border ${t.accent.activeBorder} shadow-lg`
+                  : 'text-slate-500 hover:text-slate-300 border border-transparent'}
+              `}
+            >
+              <Icon className="w-4 h-4 shrink-0" />
+              <span>{t.label}</span>
+              {isActive && (
+                <span className={`absolute -top-1 -right-1 w-2 h-2 rounded-full ${t.accent.dot} shadow-lg animate-pulse`}></span>
+              )}
+              {/* count badge */}
+              <span className={`text-[10px] px-1.5 py-0.5 rounded ${isActive ? `${t.accent.tagBg} ${t.accent.text}` : 'bg-slate-800 text-slate-500'}`}>
+                {projects.filter(p => p.category === t.id).length}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Active tab glow rule */}
+      <div className={`h-[1px] w-full mb-10 bg-gradient-to-r ${a.glow} to-transparent`}></div>
+
+      {/* Project Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {filteredProjects.map((project) => (
+          <div
+            key={project.id}
+            className={`group relative bg-[#0a0f1c] border border-slate-800 p-8 rounded-xl flex flex-col h-full transition-all duration-300 z-10 cursor-none hover:-translate-y-2 ${a.hoverBorder} ${a.hoverGlow}`}
+          >
+            {/* Hover glow overlay */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${a.gradFrom} to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl pointer-events-none`}></div>
+            {/* Top accent line */}
+            <div className={`absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r ${a.glow} to-transparent rounded-t-xl opacity-0 group-hover:opacity-100 transition-opacity`}></div>
+
+            <div className="flex justify-between items-start mb-5 z-10">
+              <h3 className={`text-xl md:text-2xl font-bold text-white group-hover:${a.text.replace('text-', 'text-')} transition-colors leading-tight pr-4`}>
+                {project.title}
+              </h3>
+              <ExternalLink className={`w-5 h-5 text-slate-600 group-hover:${a.text} transition-colors shrink-0`} />
+            </div>
+
+            <p className="text-slate-400 text-sm mb-6 leading-relaxed flex-grow z-10">{project.description}</p>
+
+            <div className="z-10 mb-6">
+              <p className={`text-xs font-mono ${a.tagText} ${a.tagBg} inline-block px-3 py-1.5 rounded border ${a.tagBorder}`}>
+                {project.stack}
+              </p>
+            </div>
+
+            <div className={`flex gap-5 mt-auto pt-5 border-t border-slate-800/80 z-10`}>
+              {project.github !== "#" && (
+                <a href={project.github} target="_blank" rel="noopener noreferrer"
+                   className="text-xs font-mono tracking-wider flex items-center gap-2 text-slate-400 hover:text-white transition-colors cursor-none">
+                  <Code className="w-4 h-4" /> &lt;SOURCE/&gt;
+                </a>
+              )}
+              {project.demo !== "#" && (
+                <a href={project.demo} target="_blank" rel="noopener noreferrer"
+                   className={`text-xs font-mono tracking-wider flex items-center gap-2 ${a.linkText} ${a.linkHover} transition-colors cursor-none`}>
+                  <ExternalLink className="w-4 h-4" /> [LIVE]
+                </a>
+              )}
+              {project.github === "#" && project.demo === "#" && (
+                <span className="text-xs font-mono text-slate-600 flex items-center gap-2">
+                  <Code className="w-4 h-4" /> Private / In Progress
+                </span>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {filteredProjects.length === 0 && (
+        <div className="text-center py-20 text-slate-600 font-mono text-sm">
+          No projects in this category yet.
+        </div>
+      )}
+    </section>
+  );
+};
+// ─────────────────────────────────────────────────────────────────────────────
 
 const CreativeGUI = ({ onSwitchMode }) => {
   const container = useRef();
@@ -120,7 +299,7 @@ const CreativeGUI = ({ onSwitchMode }) => {
       // Education Scrolling Perspective FX
       gsap.utils.toArray('.edu-card').forEach((card) => {
         gsap.fromTo(card,
-          { 
+          {
             opacity: 0,
             scale: 0.8,
             rotationX: -45,
@@ -138,6 +317,22 @@ const CreativeGUI = ({ onSwitchMode }) => {
             scrollTrigger: {
               trigger: card,
               start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      });
+      gsap.utils.toArray('.cp-platform-card').forEach((card) => {
+        gsap.fromTo(card,
+          { opacity: 0, x: -30 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 90%",
               toggleActions: "play none none reverse"
             }
           }
@@ -269,7 +464,7 @@ const CreativeGUI = ({ onSwitchMode }) => {
             <h2 className="text-xl md:text-2xl font-mono text-white tracking-wider uppercase">Education.Dat()</h2>
             <div className="h-[1px] flex-grow bg-gradient-to-r from-indigo-500/50 to-transparent"></div>
           </div>
-          
+
           <div className="flex flex-col gap-6 max-w-4xl mx-auto">
             {education.map((edu, idx) => (
               <div key={idx} className="edu-card relative bg-gradient-to-r from-indigo-950/30 to-[#0a0f1c] border border-indigo-900/40 rounded-2xl p-8 lg:p-10 overflow-hidden shadow-xl hover:border-indigo-500/50 hover:shadow-[0_0_30px_rgba(99,102,241,0.15)] transition-all group cursor-none hover:-translate-y-1">
@@ -297,49 +492,80 @@ const CreativeGUI = ({ onSwitchMode }) => {
           </div>
         </section>
 
-        {/* 3. PROJECTS GRID */}
+        {/* 3. COMPETITIVE PROGRAMMING */}
         <section className="mb-32">
           <div className="flex items-center gap-4 mb-12 gsap-reveal">
-            <Database className="w-6 h-6 text-emerald-400" />
-            <h2 className="text-xl md:text-2xl font-mono text-white tracking-wider uppercase">Deployed_Nodes (Projects)</h2>
-            <div className="h-[1px] flex-grow bg-gradient-to-r from-emerald-500/50 to-transparent"></div>
+            <Trophy className="w-6 h-6 text-amber-400" />
+            <div className="bg-amber-400/10 border border-amber-400/20 px-4 py-1.5 rounded-full">
+               <h2 className="text-sm md:text-base font-mono text-amber-400 tracking-widest uppercase font-bold">Competitive Programming</h2>
+            </div>
+            <div className="h-[1px] flex-grow bg-gradient-to-r from-amber-500/50 to-transparent"></div>
+            <a href={competitiveProgramming.github} target="_blank" rel="noopener noreferrer" className="hidden md:flex items-center gap-2 text-xs font-mono text-slate-400 hover:text-white transition-colors cursor-none">
+              Github <ExternalLink className="w-3 h-3" />
+            </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 gsap-stagger-container">
-            {projects.map((project) => (
-              <div key={project.id} className="group relative bg-[#0a0f1c] border border-slate-800 p-8 rounded-xl flex flex-col h-full hover:border-emerald-500/50 transition-all z-10 cursor-none hover:-translate-y-2">
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl pointer-events-none"></div>
+          <div className="mb-12 gsap-reveal">
+            <p className="text-lg md:text-xl text-slate-300 font-medium leading-relaxed max-w-3xl">
+              {competitiveProgramming.summary}
+            </p>
+          </div>
 
-                <div className="flex justify-between items-start mb-6 z-10">
-                  <h3 className="text-2xl font-bold text-white group-hover:text-emerald-400 transition-colors">{project.title}</h3>
-                  <ExternalLink className="w-5 h-5 text-slate-600 group-hover:text-emerald-400 transition-colors" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            {competitiveProgramming.platforms.map((p, i) => (
+              <a 
+                key={i} 
+                href={p.link} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="cp-platform-card bg-[#0a0f1c] border border-slate-800 p-6 rounded-2xl hover:border-slate-700 transition-all group cursor-none hover:-translate-y-1 relative overflow-hidden"
+              >
+                <div className={`absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity`}>
+                   <Target className={`w-12 h-12 ${p.color}`} />
                 </div>
-                <p className="text-slate-400 text-sm mb-8 leading-relaxed flex-grow z-10">{project.description}</p>
-
-                <div className="z-10 mb-8">
-                  <p className="text-xs font-mono text-emerald-400 bg-emerald-950/30 inline-block px-3 py-1.5 rounded border border-emerald-900/30">
-                    {project.stack}
-                  </p>
+                <h4 className={`font-mono text-xs uppercase tracking-widest mb-2 ${p.color}`}>{p.name}</h4>
+                <div className="flex items-baseline gap-2 mb-4">
+                  <span className="text-xl font-bold text-white tracking-tight">{p.handle}</span>
                 </div>
-
-                <div className="flex gap-4 mt-auto pt-6 border-t border-slate-800/80 z-10">
-                  {project.github !== "#" && (
-                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-xs font-mono tracking-wider flex items-center gap-2 text-slate-400 hover:text-white transition-colors cursor-none">
-                      <Code className="w-4 h-4" /> &lt;SOURCE/&gt;
-                    </a>
-                  )}
-                  {project.demo !== "#" && (
-                    <a href={project.demo} target="_blank" rel="noopener noreferrer" className="text-xs font-mono tracking-wider flex items-center gap-2 text-emerald-400 hover:text-emerald-300 transition-colors cursor-none">
-                      <ExternalLink className="w-4 h-4" /> [DEPLOYED]
-                    </a>
-                  )}
-                </div>
-              </div>
+                {p.rating && (
+                  <div className="flex items-center gap-3">
+                    <div className="flex-grow h-1.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                       <div className={`h-full ${p.color.replace('text-', 'bg-')} opacity-60`} style={{ width: '65%' }}></div>
+                    </div>
+                    <span className={`text-xs font-mono font-bold ${p.color}`}>MAX: {p.rating}</span>
+                  </div>
+                )}
+              </a>
             ))}
+          </div>
+
+          <div className="bg-[#0a0f1c] border border-slate-800 rounded-2xl p-8 gsap-reveal relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-500/50 via-amber-500/20 to-transparent"></div>
+            <div className="space-y-8">
+              {competitiveProgramming.contests.map((c, i) => (
+                <div key={i} className="flex gap-6 items-start group">
+                  <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-amber-500/20 transition-colors">
+                    <Trophy className="w-5 h-5 text-amber-500" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-3 mb-1 flex-wrap">
+                      <span className="text-amber-400 font-bold text-lg">{c.rank}</span>
+                      <span className="text-slate-200 font-bold md:text-lg">{c.name}</span>
+                    </div>
+                    <div className="flex items-center gap-2 font-mono text-sm text-slate-500 italic">
+                      Team: <span className="text-slate-400">{c.team}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* 4. RESEARCH & PUBLICATIONS */}
+        {/* 4. PROJECTS — TABBED */}
+        <ProjectsSection projects={projects} />
+
+        {/* 5. RESEARCH & PUBLICATIONS */}
         <section className="mb-32">
           <div className="flex items-center gap-4 mb-10 gsap-reveal">
             <BookOpen className="w-6 h-6 text-pink-400" />
@@ -362,7 +588,9 @@ const CreativeGUI = ({ onSwitchMode }) => {
           </div>
         </section>
 
-        {/* 5. SKILLS MARQUEE / GRID */}
+
+
+        {/* 6. SKILLS MARQUEE / GRID */}
         <section className="mb-32 gsap-reveal">
           <div className="flex items-center gap-4 mb-10">
             <Cpu className="w-6 h-6 text-cyan-400" />
@@ -378,7 +606,7 @@ const CreativeGUI = ({ onSwitchMode }) => {
           </div>
         </section>
 
-        {/* 6. ACHIEVEMENTS JOURNEY (TIMELINE) */}
+        {/* 7. ACHIEVEMENTS JOURNEY (TIMELINE) */}
         <section className="mb-32 timeline-container relative">
           <div className="flex items-center gap-4 mb-16 gsap-reveal">
             <Award className="w-6 h-6 text-amber-400" />
@@ -407,7 +635,7 @@ const CreativeGUI = ({ onSwitchMode }) => {
           </div>
         </section>
 
-        {/* 7. OTHERS: ACTIVITIES & CREATIVE */}
+        {/* 8. OTHERS: ACTIVITIES & CREATIVE */}
         <section className="mb-32">
           <div className="flex items-center gap-4 mb-10 gsap-reveal">
             <Layers className="w-6 h-6 text-rose-400" />
@@ -424,7 +652,6 @@ const CreativeGUI = ({ onSwitchMode }) => {
             ))}
           </div>
         </section>
-
         <section className="gsap-reveal pt-20 border-t border-slate-800/80">
           <div className="text-center mb-16">
             <span className="font-mono text-cyan-500 text-sm tracking-widest uppercase mb-4 block">// System.idle()</span>
@@ -434,50 +661,47 @@ const CreativeGUI = ({ onSwitchMode }) => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="bg-[#0a0f1c] border border-slate-800 rounded-2xl p-8 hover:border-slate-700 transition-colors cursor-none">
-              <div className="flex items-center gap-3 mb-8">
+            <div className="bg-[#0a0f1c] border border-slate-800 rounded-2xl p-8 hover:border-slate-700 transition-colors cursor-none flex flex-col">
+              <div className="flex items-center gap-3 mb-6">
                 <Camera className="w-6 h-6 text-cyan-500" />
                 <h3 className="text-xl font-mono text-slate-200 uppercase tracking-widest">Visual_Data</h3>
               </div>
               <p className="text-slate-400 font-mono text-sm mb-6 leading-relaxed">{hobbies.photography.description}</p>
-              <div className="flex flex-col gap-4">
-                {hobbies.photography.links.map((link, i) => {
-                  const isFacebook = link.includes("facebook");
-                  return (
-                    <a
-                      key={i}
-                      href={link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`flex items-center gap-4 px-5 py-4 rounded-xl border transition-all cursor-none group ${isFacebook
-                          ? "border-blue-800/50 bg-blue-950/20 hover:border-blue-500/60 hover:bg-blue-950/40"
-                          : "border-red-800/50 bg-red-950/20 hover:border-red-500/60 hover:bg-red-950/40"
-                        }`}
-                    >
-                      <span className={`text-2xl`}>{isFacebook ? "📘" : "📌"}</span>
-                      <div className="flex flex-col">
-                        <span className={`font-mono text-sm font-bold tracking-wider ${isFacebook ? "text-blue-400" : "text-red-400"}`}>
-                          {isFacebook ? "Facebook" : "Pinterest"}
-                        </span>
-                        <span className="text-slate-500 font-mono text-xs truncate max-w-[220px]">{link}</span>
-                      </div>
-                      <ExternalLink className={`w-4 h-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity ${isFacebook ? "text-blue-400" : "text-red-400"}`} />
-                    </a>
-                  );
-                })}
+              
+              {/* Photo Display Grid */}
+              <div className="grid grid-cols-2 gap-4 flex-grow">
+                {photos.map((photo) => (
+                  <div key={photo.id} className="relative group overflow-hidden rounded-xl border border-slate-700/50 aspect-square border-l-2 border-l-cyan-500/30">
+                    <img 
+                      src={photo.src}
+                      alt={photo.alt}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-50 group-hover:opacity-30 transition-opacity pointer-events-none"></div>
+                  </div>
+                ))}
               </div>
             </div>
 
             <div className="bg-[#0a0f1c] border border-slate-800 rounded-2xl p-8 flex flex-col hover:border-slate-700 transition-colors cursor-none">
-              <div className="flex items-center gap-3 mb-8">
+              <div className="flex items-center gap-3 mb-6">
                 <Music className="w-6 h-6 text-purple-500" />
                 <h3 className="text-xl font-mono text-slate-200 uppercase tracking-widest">Acoustic_Waves</h3>
               </div>
-              <div className="flex-grow flex flex-col items-center justify-center text-center p-8 border border-dashed border-slate-700 rounded-xl bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02),transparent)]">
-                <p className="mb-8 text-slate-400 leading-relaxed font-mono">Analyzing acoustic frequencies spanning multiple genres via performance tests.</p>
-                <a href={hobbies.music.channel} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-purple-500/50 text-white rounded-md transition-all font-mono text-sm cursor-none">
-                  <Youtube className="w-4 h-4 text-rose-500" /> Execute Youtube.play()
-                </a>
+              <p className="text-slate-400 font-mono text-sm mb-6 leading-relaxed">{hobbies.music.description}</p>
+              
+              {/* Video Embedding */}
+              <div className="flex-grow w-full relative rounded-xl overflow-hidden border border-slate-700 aspect-video group border-l-2 border-l-purple-500/50">
+                <div className="absolute inset-0 bg-slate-900 animate-pulse -z-10"></div>
+                <iframe 
+                  className="absolute top-0 left-0 w-full h-full pointer-events-auto"
+                  src={youtubeChannelUrl.replace("watch?v=", "embed/")} 
+                  title="YouTube video player" 
+                  frameBorder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                  allowFullScreen
+                ></iframe>
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-purple-500/50 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500 pointer-events-none"></div>
               </div>
             </div>
           </div>

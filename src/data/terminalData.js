@@ -1,6 +1,8 @@
 export const projects = [
+  // ── WEBSITE ─────────────────────────────────────────────
   {
     id: 1,
+    category: "website",
     title: "AuraStyle",
     description: "A platform integrating Google Gemini AI for automated clothing analysis and outfit generation. Designed a privacy-focused digital wardrobe with a premium glassmorphic UI, utilizing local storage for secure data management.",
     stack: "React, Google Gemini AI",
@@ -9,6 +11,7 @@ export const projects = [
   },
   {
     id: 2,
+    category: "website",
     title: "Prompt Verse",
     description: "Implemented on-chain automation, including EIP-2981 for creator royalties and integrated IPFS for decentralized metadata storage, delivering a secure and scalable Web3 frontend.",
     stack: "Next.js, Solidity",
@@ -17,21 +20,62 @@ export const projects = [
   },
   {
     id: 3,
-    title: "AUST Nanosatellite Lab Website",
-    description: "Worked on the development of software systems for the AUST Nanosatellite Program, which focuses on designing and building a nanosatellite.",
-    stack: "React.js, Raspberry Pi, Firebase",
-    github: "#",
-    demo: "https://aust-sat.vercel.app/"
-  },
-  {
-    id: 4,
+    category: "website",
     title: "Shonali Desh",
     description: "Implemented an AI-powered agronomy service that predicts floods, salinity, and crop diseases to give farmers AI-driven guidance that reduces chemical misuse and crop loss.",
     stack: "React, Tailwind CSS",
     github: "#",
     demo: "#"
-  }
+  },
+  {
+    id: 4,
+    category: "website",
+    title: "Ekko Loop",
+    description: "Built a containerized SaaS platform using React, Django, and Docker to automate business appointments and customer engagement workflows. Implemented real-time AI interactions and an asynchronous notification system with Celery and Redis, enhancing customer response rates.",
+    stack: "React, Django, N8N, Celery, Redis, Docker",
+    github: "https://github.com/abrar-khan-alvi",
+    demo: "#"
+  },
+  {
+    id: 5,
+    category: "website",
+    title: "AI Video Generation",
+    description: "Built a Django/DRF backend integrating Gemini and HeyGen to automate professional AI-generated marketing videos. Engineered an asynchronous task system with Celery and Redis for video processing and secure OTP-based user verification.",
+    stack: "Django, HeyGen, Gemini, Celery, Redis",
+    github: "https://github.com/abrar-khan-alvi",
+    demo: "#"
+  },
+  // ── APP ──────────────────────────────────────────────────
+  {
+    id: 6,
+    category: "app",
+    title: "OpenIUMS",
+    description: "Developed a comprehensive Android application using Java and Firebase to streamline the open credit system for universities, providing students and faculty with a modern, intuitive interface for managing academic records.",
+    stack: "Java, Android, Firebase",
+    github: "https://github.com/abrar-khan-alvi",
+    demo: "#"
+  },
+  // ── HARDWARE ─────────────────────────────────────────────
+  {
+    id: 7,
+    category: "hardware",
+    title: "AUST Nanosatellite Lab Website",
+    description: "Working on the development of software systems for the AUST Nanosatellite Program, which focuses on designing and building a nanosatellite. Contributed to both the embedded firmware layer and the live telemetry web dashboard.",
+    stack: "React.js, Raspberry Pi, Firebase",
+    github: "#",
+    demo: "https://aust-sat.vercel.app/"
+  },
+  {
+    id: 8,
+    category: "hardware",
+    title: "Silent Signal",
+    description: "Designed and built a noise-reduction system using Arduino (C++) and NRF sensors to mitigate unnecessary car horn honking in urban environments. The device detects horn patterns and triggers a counter-signal to dampen repetitive noise pollution.",
+    stack: "Arduino, C++, NRF Sensors",
+    github: "https://github.com/abrar-khan-alvi",
+    demo: "#"
+  },
 ];
+
 
 export const education = [
   {
@@ -126,12 +170,58 @@ export const commands = [
   "awards",
   "research",
   "contact",
+  "cp",
   "hobby",
   "clear",
   "init",
   "whoami",
   "sudo"
 ];
+
+export const competitiveProgramming = {
+  summary: "I have solved 1000+ algorithmic problems across all platforms & Onsite contests",
+  github: "https://github.com/abrar-khan-alvi",
+  platforms: [
+    {
+      name: "LeetCode",
+      handle: "abrar1khan2",
+      link: "https://leetcode.com/u/abrar1khan2",
+      color: "text-amber-400",
+      rating: null
+    },
+    {
+      name: "CodeChef",
+      handle: "alvi_saaheb",
+      link: "https://www.codechef.com/users/alvi_saaheb",
+      color: "text-emerald-400",
+      rating: "1414"
+    },
+    {
+      name: "Codeforces",
+      handle: "alvi_saheb",
+      link: "https://codeforces.com/profile/alvi_saheb",
+      color: "text-blue-400",
+      rating: "1059"
+    }
+  ],
+  contests: [
+    {
+      rank: "1st Runner-up",
+      name: "Intra AUST Programming Contest (IAPC) Fall'21",
+      team: "AUST_VIGILANTES"
+    },
+    {
+      rank: "5th",
+      name: "Intra AUST Programming Contest (IAPC) Spring'22",
+      team: "AUST_VIGILANTES"
+    },
+    {
+      rank: "257th",
+      name: "National Collegiate Programming Contest (NCPC) Preliminary 2023",
+      team: "AUST_VIGILANTES"
+    }
+  ]
+};
 
 export const researchInfo = [
   {
