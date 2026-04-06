@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { Terminal, Cpu, Database, Network, Award, BookOpen, Camera, Music, ExternalLink, Code, Layers, Sparkles, Youtube, Download, GraduationCap, Trophy, Target, Globe, Smartphone, Microchip } from 'lucide-react';
+import { Terminal, Cpu, Database, Network, Award, BookOpen, Camera, Music, ExternalLink, Code, Layers, Sparkles, Youtube, Download, GraduationCap, Trophy, Target, Globe, Smartphone, Microchip, X } from 'lucide-react';
 import { projects, experience, education, extracurricular, awards, researchInfo, hobbies, competitiveProgramming } from '../data/terminalData';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -199,6 +199,7 @@ const CreativeGUI = ({ onSwitchMode }) => {
   ];
 
   const youtubeChannelUrl = hobbies.music.channel;
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   // Custom Cursor
   useEffect(() => {
@@ -352,8 +353,8 @@ const CreativeGUI = ({ onSwitchMode }) => {
   return (
     <div ref={container} className="min-h-screen w-full bg-[#020617] text-slate-300 font-sans selection:bg-cyan-500/30 cursor-none relative">
       {/* Custom Cursor */}
-      <div ref={cursorRef} className="fixed top-0 left-0 w-2 h-2 bg-cyan-400 rounded-full pointer-events-none z-[100] -translate-x-1/2 -translate-y-1/2 shadow-[0_0_10px_#22d3ee] hidden md:block"></div>
-      <div ref={cursorFollowerRef} className="fixed top-0 left-0 w-8 h-8 border border-cyan-500/50 rounded-full pointer-events-none z-[99] -translate-x-1/2 -translate-y-1/2 transition-transform duration-100 ease-out hidden md:block"></div>
+      <div ref={cursorRef} className="fixed top-0 left-0 w-2 h-2 bg-cyan-400 rounded-full pointer-events-none z-[9999] -translate-x-1/2 -translate-y-1/2 shadow-[0_0_10px_#22d3ee] hidden md:block"></div>
+      <div ref={cursorFollowerRef} className="fixed top-0 left-0 w-8 h-8 border border-cyan-500/50 rounded-full pointer-events-none z-[9998] -translate-x-1/2 -translate-y-1/2 transition-transform duration-100 ease-out hidden md:block"></div>
 
       {/* Cyber Grid Background */}
       <div className="fixed inset-0 z-0 opacity-[0.03] pointer-events-none"
@@ -671,7 +672,11 @@ const CreativeGUI = ({ onSwitchMode }) => {
               {/* Photo Display Grid */}
               <div className="grid grid-cols-2 gap-4 flex-grow">
                 {photos.map((photo) => (
-                  <div key={photo.id} className="relative group overflow-hidden rounded-xl border border-slate-700/50 aspect-square border-l-2 border-l-cyan-500/30">
+                  <div 
+                    key={photo.id} 
+                    className="relative group overflow-hidden rounded-xl border border-slate-700/50 aspect-square border-l-2 border-l-cyan-500/30 cursor-none"
+                    onClick={() => setSelectedPhoto(photo)}
+                  >
                     <img 
                       src={photo.src}
                       alt={photo.alt}
@@ -707,6 +712,31 @@ const CreativeGUI = ({ onSwitchMode }) => {
           </div>
         </section>
       </div>
+
+      {/* Photo Modal */}
+      {selectedPhoto && (
+        <div 
+          className="fixed inset-0 z-[1000] flex items-center justify-center p-4 bg-[#020617]/90 backdrop-blur-sm cursor-none"
+          onClick={() => setSelectedPhoto(null)}
+        >
+          <div 
+            className="relative max-w-5xl max-h-[90vh] w-full h-full flex items-center justify-center p-4" 
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img 
+              src={selectedPhoto.src} 
+              alt={selectedPhoto.alt}
+              className="max-w-full max-h-full object-contain rounded-xl border border-slate-700/50 shadow-[0_0_50px_rgba(34,211,238,0.15)]"
+            />
+            <button 
+              onClick={() => setSelectedPhoto(null)}
+              className="absolute top-0 right-0 md:top-4 md:right-4 bg-[#0a0f1c] hover:bg-slate-800 text-slate-400 hover:text-white p-3 rounded-full border border-slate-700 transition-colors z-[1010] cursor-none shadow-lg"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* TECH FOOTER */}
       <footer className="mt-32 border-t border-slate-800 bg-[#020617] py-20 relative overflow-hidden gsap-reveal">
