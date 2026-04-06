@@ -422,7 +422,7 @@ const CreativeGUI = ({ onSwitchMode }) => {
                 <img
                   src="/profile.png"
                   alt="Abrar Khan Alvi"
-                  className="w-full h-auto object-contain grayscale hover:grayscale-0 transition-all duration-700 transform group-hover:scale-[1.03]"
+                  className="w-full h-auto object-contain transition-all duration-700 transform group-hover:scale-[1.03]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent opacity-60 pointer-events-none"></div>
               </div>
